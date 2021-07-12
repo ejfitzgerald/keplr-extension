@@ -237,6 +237,20 @@ export class KeyRing {
     await this.save();
   }
 
+  public async importEthLedgerKey(
+    env: Env,
+    password: string,
+    meta: Record<string, string>,
+    ethAddress: string
+  ) {
+    if (this.status !== KeyRingStatus.EMPTY) {
+      throw new Error("Key ring is not loaded or not empty");
+    }
+
+    const pathsToCheck = [[44, 60, 0]];
+    for (let i = 0; i < 20; ++i) {}
+  }
+
   public async createLedgerKey(
     env: Env,
     password: string,

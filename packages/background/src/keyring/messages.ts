@@ -284,6 +284,37 @@ export class CreateLedgerKeyMsg extends Message<{ status: KeyRingStatus }> {
   }
 }
 
+// export class FindLedgerKeyMsg extends Message<{ status: KeyRingStatus }> {
+//   public static type() {
+//     return "create-ledger-key";
+//   }
+//
+//   constructor(
+//     public readonly password: string,
+//     // public readonly
+//     public readonly meta: Record<string, string>,
+//     public readonly bip44HDPath: BIP44HDPath
+//   ) {
+//     super();
+//   }
+//
+//   validateBasic(): void {
+//     if (!this.password) {
+//       throw new Error("password not set");
+//     }
+//
+//     KeyRing.validateBIP44Path(this.bip44HDPath);
+//   }
+//
+//   route(): string {
+//     return ROUTE;
+//   }
+//
+//   type(): string {
+//     return CreateLedgerKeyMsg.type();
+//   }
+// }
+
 export class AddPrivateKeyMsg extends Message<MultiKeyStoreInfoWithSelected> {
   public static type() {
     return "add-private-key";

@@ -84,6 +84,7 @@ export const MigrateEthereumAddressPage: FunctionComponent<{
     case MigrationMode.METAMASK_LEDGER:
       return (
         <MigrateMetamaskLedgerPage
+          registerConfig={registerConfig}
           onBack={() => setMode(MigrationMode.SELECT_MODE)}
         />
       );

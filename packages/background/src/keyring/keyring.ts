@@ -237,6 +237,11 @@ export class KeyRing {
     await this.save();
   }
 
+  // Ethereum — m’/44’/60’/0’/0
+  // Ethereum (Ledger) — m’/44’/60’/0’
+  // Ethereum (Ledger Live) — m’/44’/60’
+  // Cosmos (ATOM) — m’/44'/118'/0'/0
+
   public async importEthLedgerKey(
     env: Env,
     password: string,
@@ -247,8 +252,20 @@ export class KeyRing {
       throw new Error("Key ring is not loaded or not empty");
     }
 
-    const pathsToCheck = [[44, 60, 0]];
-    for (let i = 0; i < 20; ++i) {}
+    const prefixesToCheck = [
+      [44, 60, 0, 0],
+      [44, 60, 0],
+      [44, 60],
+    ];
+
+    for (const prefix of prefixesToCheck) {
+      for (let i = 0; i < 20; ++i) {
+        const path = [...prefix, i];
+        const publicKey = await this.ledgerKeeper.getPublicKeyEx(env, path);
+
+        console.log("Public Key", Buffer.from(publicKey).toString("hex"));
+      }
+    }
   }
 
   public async createLedgerKey(
